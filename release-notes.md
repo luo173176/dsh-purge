@@ -1,3 +1,21 @@
+# 1.1.72
+
+## 中文
+
+- 版本 **1.1.72**。
+- 提示词覆盖更广：#32 / #53 / #54 跟进 DSH 0.2.2-rc.5 —— Web 面身份句 / 禁止另开服务器迁到 `dsh-harness-dev-context`，交付物提示词迁到 `dsh-deliverable-file-references`。三处不再恒报 skipped，Apply 即清洗。
+- Hooks 覆盖更广：#30 / #64 / #65 现在能找到 `profiles/<name>/node_modules/@deepseek-ai` 里单独安装的 `dsh-hooks-claude-code` / `dsh-hooks-codex`（以前只扫运行时内置树，桌面端全落空）。
+- #30 / #31 挂 `skipIfMarked`：修掉 #65 回写带 `"deny"` 空壳后被 #30 二次改写、多次 Apply 文件漂移的问题，Apply 保持幂等。
+- 修复「CMD 无感未钉入」误报：`silenceCmdFlash().ok` 现在只代表 windowsHide 注入是否成功，liangshen 提示词另用 `liangshenOk` 暴露；补丁全软通过、只待重启时 UI 不再伪造成 CMD 失败，改提示「重启后完成剩余钉入」。
+
+## English
+
+- **1.1.72**.
+- Broader prompt coverage: #32 / #53 / #54 follow DSH 0.2.2-rc.5 — the web-surface identity / no-replacement-server text moved to `dsh-harness-dev-context`, the deliverable prompt to `dsh-deliverable-file-references`. No longer permanently "skipped"; Apply now cleans them.
+- Broader Hooks coverage: #30 / #64 / #65 now find `dsh-hooks-claude-code` / `dsh-hooks-codex` installed under `profiles/<name>/node_modules/@deepseek-ai` (previously only the runtime tree was scanned, so desktop found nothing).
+- #30 / #31 honor `skipIfMarked`: fixes #65 restoring a `"deny"` shell that #30 rewrote again on the next Apply (file drift); Apply stays idempotent.
+- Fix false "CMD silence not pinned": `silenceCmdFlash().ok` now reflects only the windowsHide injection; liangshen prompt status is exposed separately as `liangshenOk`. When every patch soft-passes and only a restart is pending, the UI no longer fabricates a CMD failure and says pinning finishes after restart.
+
 # 1.1.71
 
 ## 中文

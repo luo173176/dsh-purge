@@ -344,6 +344,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			"restart.incomplete": "提示词已写入。{detail}",
 			"restart.incomplete.patches": "还有 {failed} 项代码补丁没对上当前版本（#{ids}），不影响这段提示词",
 			"restart.incomplete.flash": "CMD 无感未钉入（{entry}）",
+			"restart.incomplete.pending": "重启后完成剩余钉入",
 			"restart.later": "以后",
 			"group.prompt": "提示词",
 			"group.code": "代码",
@@ -684,6 +685,7 @@ window.__ModuleLoader__.load({ id: "dsh-purge", factory: (require) => {
 			"restart.incomplete": "The prompt is in. {detail}",
 			"restart.incomplete.patches": "{failed} code patch(es) did not match this host (#{ids}). The prompt is unaffected",
 			"restart.incomplete.flash": "CMD silence not pinned ({entry})",
+			"restart.incomplete.pending": "Remaining pinning completes after a restart",
 			"restart.later": "Later",
 			"group.prompt": "Prompt",
 			"group.code": "Code",
@@ -1656,7 +1658,9 @@ body:not([data-ds-dark-theme]) .dshp-auth-ops button.primary{background:var(--ds
 										}),
 									);
 								}
-								if (parts.length === 0) parts.push(tr("restart.incomplete.flash", { entry: "unknown" }));
+								// 只剩「未标 complete」但补丁全软通过、CMD 无感已钉入时，不是错误：
+								// 不要伪造成「CMD 无感未钉入」，只提示重启完成剩余钉入。
+								if (parts.length === 0) parts.push(tr("restart.incomplete.pending"));
 								setNotice({
 									kind: "error",
 									text: tr("restart.incomplete", { detail: parts.join("；") }),
